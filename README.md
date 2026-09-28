@@ -2,6 +2,12 @@
 
 Este repositorio es una adaptación del proyecto original [milesial/Pytorch-UNet](https://github.com/milesial/Pytorch-UNet) para segmentar tumores cerebrales en imágenes de resonancia magnética.
 
+![Python](https://img.shields.io/badge/Python-Deep%20Learning-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-U--Net-EE4C2C?logo=pytorch&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-Calculo-013243?logo=numpy&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-Imagenes-5C3EE8?logo=opencv&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualizacion-11557C)
+
 El modelo utilizado es U-Net y el problema se trata como segmentación binaria:
 
 - `0`: fondo
