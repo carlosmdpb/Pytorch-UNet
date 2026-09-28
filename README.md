@@ -44,9 +44,9 @@ El repositorio original estaba preparado principalmente para segmentación sobre
 
 ---
 
-## 2. Contribución propia
+## 2. Adaptaciones para este problema
 
-Las principales aportaciones realizadas sobre el repositorio original son:
+Las principales adaptaciones realizadas sobre el repositorio original son:
 
 - Adaptación del proyecto al dataset de tumores cerebrales.
 - Preparación de máscaras binarias a partir de anotaciones COCO.
@@ -68,11 +68,7 @@ El dataset utilizado es:
 
 **Brain Tumor Image Dataset - Semantic Segmentation**
 
-Disponible en Kaggle:
-
-```text
-https://www.kaggle.com/datasets/pkdarabi/brain-tumor-image-dataset-semantic-segmentation
-```
+Disponible en [Kaggle](https://www.kaggle.com/datasets/pkdarabi/brain-tumor-image-dataset-semantic-segmentation).
 
 El dataset original contiene imágenes y anotaciones en formato COCO. Para entrenar el modelo, esas anotaciones deben convertirse en máscaras binarias.
 
@@ -127,7 +123,7 @@ La carpeta `dataset_raw` solo es necesaria si se quiere regenerar el dataset des
 Clonar el repositorio:
 
 ```bash
-git clone https://github.com/carmarbar9/Pytorch-UNet.git
+git clone https://github.com/carlosmdpb/Pytorch-UNet.git
 cd Pytorch-UNet
 ```
 
@@ -289,7 +285,7 @@ imagen_test_OUT_overlay_gt.png
 Si se usan los datos ya preparados del repositorio, basta con ejecutar:
 
 ```bash
-git clone https://github.com/carmarbar9/Pytorch-UNet.git
+git clone https://github.com/carlosmdpb/Pytorch-UNet.git
 cd Pytorch-UNet
 
 python -m venv venv
@@ -301,7 +297,7 @@ pip install -r requirements.txt
 
 python train.py --epochs 5 --batch-size 2 --classes 1
 
-python predict.py -m checkpoints/best_model.pth -i data/pred/imgs/imagen_test.png -o data/pred/imagen_test_OUT.png -c 1 --overlay
+python predict.py -m checkpoints/best_model.pth -i data/imgs/10_jpg.rf.68504d449dd333632ea80d4a945b0a77.png -o data/pred/ejemplo_OUT.png -c 1 --overlay
 ```
 
 En Linux o macOS, sustituir:
@@ -315,6 +311,16 @@ por:
 ```bash
 source venv/bin/activate
 ```
+
+El comando rápido usa una imagen incluida en el conjunto de entrenamiento y sirve para comprobar el flujo; no mide la generalización. La carpeta `data/pred/imgs/` no incluye imágenes de prueba. En los ejemplos de las secciones 8 y 9, `imagen_test.png` debe sustituirse por una imagen que hayas añadido. Para comparar con una máscara real, añadirla con el mismo nombre a `data/pred/masks/`.
+
+## Evaluación y alcance
+
+El entrenamiento reserva por defecto un 10 % de los datos para validación y selecciona el mejor checkpoint por Dice Score. El README no presenta una métrica final de rendimiento: debe obtenerse de una ejecución documentada con su configuración y partición de datos.
+
+Es un experimento académico de segmentación de imágenes médicas. No acredita validación clínica. Para evaluar la generalización se necesita un conjunto de prueba separado del entrenamiento y la validación.
+
+El script `04_copy_train_subset.py` reemplaza los archivos de `data/imgs/` y `data/masks/`. Conservar una copia si se han añadido datos propios antes de regenerar el subconjunto.
 
 ---
 
@@ -330,7 +336,7 @@ python predict.py -m checkpoints/best_model.pth -i data/pred/imgs/imagen_test.pn
 
 ### La predicción sale negra
 
-Puede ocurrir porque la máscara se guarda con valores `0` y `1`, difíciles de ver directamente. Se recomienda usar:
+Los datos de entrenamiento usan máscaras `0`/`1`; la predicción convierte esa codificación a una imagen booleana. Una salida negra puede indicar que no hay píxeles que superen el umbral. Comprobar el modelo, la imagen y `--mask-threshold`; para inspeccionar la predicción sobre la imagen original, usar:
 
 ```bash
 --overlay
@@ -357,6 +363,10 @@ El proyecto se ha probado principalmente en CPU. Para reducir el tiempo:
 
 ## 13. Referencias
 
-- Repositorio original PyTorch-UNet: https://github.com/milesial/Pytorch-UNet
-- Dataset utilizado: https://www.kaggle.com/datasets/pkdarabi/brain-tumor-image-dataset-semantic-segmentation
-- Paper original de U-Net: https://arxiv.org/abs/1505.04597
+- [Repositorio original PyTorch-UNet](https://github.com/milesial/Pytorch-UNet).
+- [Dataset utilizado](https://www.kaggle.com/datasets/pkdarabi/brain-tumor-image-dataset-semantic-segmentation).
+- [Paper original de U-Net](https://arxiv.org/abs/1505.04597).
+
+## Licencia
+
+El código conserva la licencia [GNU GPL v3](LICENSE) del repositorio base. Las condiciones de uso del dataset deben consultarse por separado.
