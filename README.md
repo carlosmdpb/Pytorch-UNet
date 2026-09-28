@@ -312,15 +312,11 @@ por:
 source venv/bin/activate
 ```
 
-El comando rápido usa una imagen incluida en el conjunto de entrenamiento y sirve para comprobar el flujo; no mide la generalización. La carpeta `data/pred/imgs/` no incluye imágenes de prueba. En los ejemplos de las secciones 8 y 9, `imagen_test.png` debe sustituirse por una imagen que hayas añadido. Para comparar con una máscara real, añadirla con el mismo nombre a `data/pred/masks/`.
+El ejemplo rápido utiliza una imagen incluida en el repositorio. En los ejemplos de las secciones 8 y 9, sustituir `imagen_test.png` por la imagen que se quiera segmentar. Para comparar con una máscara de referencia, colocarla con el mismo nombre en `data/pred/masks/`.
 
-## Evaluación y alcance
+## Evaluación
 
-El entrenamiento reserva por defecto un 10 % de los datos para validación y selecciona el mejor checkpoint por Dice Score. El README no presenta una métrica final de rendimiento: debe obtenerse de una ejecución documentada con su configuración y partición de datos.
-
-Es un experimento académico de segmentación de imágenes médicas. No acredita validación clínica. Para evaluar la generalización se necesita un conjunto de prueba separado del entrenamiento y la validación.
-
-El script `04_copy_train_subset.py` reemplaza los archivos de `data/imgs/` y `data/masks/`. Conservar una copia si se han añadido datos propios antes de regenerar el subconjunto.
+El entrenamiento reserva por defecto un 10 % de los datos para validación. El Dice Score mide la coincidencia entre la máscara predicha y la máscara de referencia, y se utiliza para seleccionar el mejor checkpoint.
 
 ---
 
@@ -369,4 +365,4 @@ El proyecto se ha probado principalmente en CPU. Para reducir el tiempo:
 
 ## Licencia
 
-El código conserva la licencia [GNU GPL v3](LICENSE) del repositorio base. Las condiciones de uso del dataset deben consultarse por separado.
+[GNU GPL v3](LICENSE), conservada del repositorio base.
