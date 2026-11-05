@@ -1,0 +1,15 @@
+*.pyc
+__pycache__/
+venv/
+.idea/
+wandb/
+
+# ignorar todo por defecto
+data/*
+checkpoints/
+*.pth
+
+# PERMITIR lo necesario
+!data/imgs/
+!data/masks/
+!data/pred/
